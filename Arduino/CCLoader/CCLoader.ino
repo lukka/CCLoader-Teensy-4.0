@@ -1,3 +1,6 @@
+// Define TEST_HM10_DEVICE to run a simple firmware that allow you to type
+// commands to the BLE module via the serial terminal.
+//#define TEST_HM10_DEVICE
 
 /*
 
@@ -87,7 +90,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 int DD = 6;
 int DC = 5;
 int RESET = 4;
-int LED = 13;
+int LED = 7;
 
 /******************************************************************************
  VARIABLES*/
@@ -522,15 +525,24 @@ void ProgrammerInit(void)
 
 void setup() 
 {  
+#if defined(TEST_HM10_DEVICE)
+  setup2();
+  return;
+#endif
   ProgrammerInit();  
   Serial.begin(115200);
   // If using Leonado as programmer, 
   //it should add below code,otherwise,comment it.
-  while(!Serial);
+  //while(!Serial);
+  Serial.println("Started!");
 }
 
 void loop() 
 {
+#if defined(TEST_HM10_DEVICE)
+  loop2();
+  return;
+#endif
   unsigned char chip_id = 0;
   unsigned char debug_config = 0;
   unsigned char Continue = 0;
@@ -560,6 +572,7 @@ void loop()
     Serial.write(ERRO);  
     return; // No chip detected, run loop again.
   }
+  //??Serial.printf("chipid=%d\n", chip_id);
   
   RunDUP();
   debug_init();

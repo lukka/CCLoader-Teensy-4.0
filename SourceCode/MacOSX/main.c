@@ -43,7 +43,7 @@ int Cport[30], error;
 
 struct termios new_port_settings, old_port_settings[30];
 
-char comports[1][26]={"/dev/tty.usbmodem1431"};
+char comports[1][1024]={"/dev/tty.usbmodemFIXMEHERE"};
 
 void ProcessProgram(void);
 
@@ -58,7 +58,7 @@ int main(int arg, char *argv[])
 	if(arg < 3)
 	{
 		printf("Input parameters error, it should be:\n");
-		printf("for example:CCLoader.exe [/dev/]ttyS0 abc.bin\n");
+		printf("for example:CCLoader [/dev/]ttyS0 abc.bin\n");
 		return 0;
 	}
     
